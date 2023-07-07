@@ -1,7 +1,17 @@
+import Image from 'next/image'
+import styles from './page.module.css'
+
 export default function Egg() {
   return (
-    <div>
-      Hello there
-    </div>
+    <main className={styles.eggPage}>
+      <div className={styles.eggImg}>
+        <Image src={'/images/egg.svg'} alt='Egg' width={512} height={512}
+         draggable='false' style={{background: '#D8E9E4'}} />
+      </div>
+
+      <div className={styles.subtitle}>
+        <a href='/' style={{background: '#D8E9E4'}}>Chicken</a>
+      </div>
+    </main>
   )
 }

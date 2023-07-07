@@ -1,0 +1,19 @@
+.eggPage {
+  background: #D8E9E4;
+  width: 100vw;
+  height: 100vh;
+}
+
+.eggImg {
+  display: flex;
+  justify-content: center;
+  background: #D8E9E4;
+}
+
+.subtitle{
+  font-size: 84px;
+  display: flex;
+  justify-content: center;
+  background-color: #D8E9E4;
+  margin: 1rem 0 3rem;
+}

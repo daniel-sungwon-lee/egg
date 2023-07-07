@@ -5,7 +5,9 @@ export default function Home() {
   return (
     <main>
       <div className={styles.title}>
-        Egg
+        <a href='/egg'>
+          Egg
+        </a>
       </div>
       <div className={styles.chickenImg}>
         <Image src={'/images/poultry.png'} alt='Chicken' width={512} height={512}
