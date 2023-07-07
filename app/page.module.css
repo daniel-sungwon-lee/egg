@@ -1,0 +1,11 @@
+.title {
+  font-size: 88px;
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0 3rem;
+}
+
+.chickenImg {
+  display: flex;
+  justify-content: center;
+}

@@ -1,7 +1,7 @@
 import './globals.css'
-import { Inter } from 'next/font/google'
+import localFont from 'next/font/local'
 
-const inter = Inter({ subsets: ['latin'] })
+const Magda = localFont({src: '../public/fonts/Magda.otf'})
 
 export const metadata = {
   title: 'Egg',
@@ -11,7 +11,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={Magda.className}>{children}</body>
     </html>
   )
 }
