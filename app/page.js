@@ -5,13 +5,13 @@ export default function Home() {
   return (
     <main>
       <div className={styles.title}>
-        <a href='/egg'>
+        <a href='/egg' className='label'>
           Egg
         </a>
       </div>
       <div className={styles.chickenImg}>
         <Image src={'/images/poultry.png'} alt='Chicken' width={512} height={512}
-         draggable='false' />
+         draggable='false' className='image' />
       </div>
     </main>
   )
