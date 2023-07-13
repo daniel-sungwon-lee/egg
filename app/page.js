@@ -10,7 +10,7 @@ export default function Home() {
         </a>
       </div>
       <div className={styles.chickenImg}>
-        <Image src={'/images/poultry.png'} alt='Chicken' width={512} height={512}
+        <Image src={'/images/poultry.svg'} alt='Chicken' width={512} height={512}
          draggable='false' className='image' />
       </div>
     </main>
