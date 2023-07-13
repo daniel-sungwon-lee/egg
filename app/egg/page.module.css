@@ -10,10 +10,19 @@
   background: #D8E9E4;
 }
 
+.lottie {
+  display: flex;
+  justify-content: center;
+  background: #D8E9E4;
+}
+.lottie svg {
+  background: #D8E9E4;
+}
+
 .subtitle{
   font-size: 84px;
   display: flex;
   justify-content: center;
   background-color: #D8E9E4;
-  margin: 1rem 0 3rem;
+  padding: 1rem 0 3rem;
 }
