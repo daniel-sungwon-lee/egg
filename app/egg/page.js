@@ -21,7 +21,7 @@ export default function Egg() {
                        : <div className={styles.lottie}>
                            <Lottie animationData={chickAnimation} loop autoplay
                             draggable='false' className='image' style={{margin: '5rem 0',
-                            cursor: 'pointer'}}
+                            cursor: 'pointer', background: '#D8E9E4'}}
                             onClick={() => setIcon('egg')} />
                          </div>
       }
