@@ -34,7 +34,7 @@ export default function Egg() {
                        : <div className={`${styles.lottie} chick`} style={{opacity: 1}}>
                            <Lottie animationData={chickAnimation} loop autoplay
                             draggable='false' className='image' style={{margin: '4rem 0',
-                            background: '#D8E9E4'}} />
+                            background: '#D8E9E4', width: '460px'}} />
                          </div>
       }
       <div className={styles.subtitle}>
