@@ -2,6 +2,7 @@
   background: #D8E9E4;
   width: 100vw;
   height: 100vh;
+  overflow: hidden;
 }
 
 .eggImg {
@@ -25,4 +26,6 @@
   justify-content: center;
   background-color: #D8E9E4;
   padding: 1rem 0 3rem;
+  position: relative;
+  z-index: 3;
 }
