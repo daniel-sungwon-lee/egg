@@ -33,7 +33,7 @@ export default function Egg() {
                          </div>
                        : <div className={`${styles.lottie} chick`} style={{opacity: 1}}>
                            <Lottie animationData={chickAnimation} loop autoplay
-                            draggable='false' className='image' style={{margin: '4rem 0',
+                            draggable='false' className='image' style={{margin: '4rem 2rem',
                             background: '#D8E9E4', width: '460px'}} />
                          </div>
       }
