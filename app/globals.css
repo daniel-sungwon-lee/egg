@@ -2,6 +2,9 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+}
+
+body {
   background: #FCE0B0;
 }
 
@@ -13,10 +16,6 @@
 a {
   text-decoration: none;
   color: black;
-}
-
-.chickenModal {
-  background: none;
 }
 
 .ant-collapse-item {
