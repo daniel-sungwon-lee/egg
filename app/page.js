@@ -3,25 +3,57 @@
 import Image from 'next/image'
 import styles from './page.module.css'
 import localFont from 'next/font/local'
-import { Card, Collapse, Modal } from 'antd/es'
+import { Button, Card, Collapse, Input, Modal } from 'antd/es'
 import { PlusOutlined } from '@ant-design/icons'
 import { useState } from 'react'
 
 const Magda = localFont({ src: '../public/fonts/Magda.otf' })
 
-const items = [
-  {
-    key: '1',
-    label: 'Add your chicken here',
-    children: <Card bordered={false} bodyStyle={{background: 'white'}}
-               className={Magda.className}>
-                Hello
-              </Card>
-  }
-]
+const { TextArea } = Input
 
 export default function Home() {
   const [open, setOpen] = useState(false)
+  const [name, setName] = useState('')
+  const [age, setAge] = useState('')
+  const [description, setDescription] = useState('')
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  }
+
+  const items = [
+    {
+      key: '1',
+      label: 'Add your chicken here',
+      children: <Card bordered={false} bodyStyle={{ background: 'white' }}
+                 className={Magda.className} style={{width: '300px'}}>
+                  <form onSubmit={handleSubmit} style={{background: 'white'}}>
+                    <p style={{background: 'white'}}>Name:</p>
+                    <Input placeholder='Snowflake' value={name}
+                     onChange={(e) => setName(e.target.value)} required
+                     className={Magda.className} style={{marginBottom: '1rem'}} />
+
+                    <p style={{background: 'white'}}>Age:</p>
+                    <Input placeholder='3 years' value={age}
+                     onChange={(e) => setAge(e.target.value)} required
+                     className={Magda.className} style={{marginBottom: '1rem'}} />
+
+                    <p style={{background: 'white'}}>Descripton:</p>
+                    <TextArea placeholder='Brown with white spots on head'
+                     value={description} className={Magda.className}
+                     onChange={(e) => setDescription(e.target.value)}
+                     style={{marginBottom: '1rem'}} required />
+
+                    <div style={{display: 'flex', justifyContent: 'center', background: 'white'}}>
+                      <Button htmlType='submit' shape='round' className={Magda.className}
+                       style={{background: '#FCE0B0'}} type='text'>
+                        Submit
+                      </Button>
+                    </div>
+                  </form>
+                </Card>
+    }
+  ]
 
   return (
     <main>
