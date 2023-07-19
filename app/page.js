@@ -3,19 +3,28 @@
 import Image from 'next/image'
 import styles from './page.module.css'
 import localFont from 'next/font/local'
-import { Button, Card, Collapse, Input, Modal, message } from 'antd/es'
+import { Avatar, Button, Card, Collapse, Input, List, Modal, message } from 'antd/es'
 import { PlusOutlined } from '@ant-design/icons'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const Magda = localFont({ src: '../public/fonts/Magda.otf' })
 
 const { TextArea } = Input
 
 export default function Home() {
+  const [data, setData] = useState([])
+
   const [open, setOpen] = useState(false)
+
   const [name, setName] = useState('')
   const [age, setAge] = useState('')
   const [description, setDescription] = useState('')
+
+  useEffect(() => {
+    if(localStorage.getItem('chickenHeadcount')) {
+      setData(JSON.parse(localStorage.getItem('chickenHeadcount')))
+    }
+  },[])
 
   const [messageApi, contextHolder] = message.useMessage();
   const successMessage = () => {
@@ -50,6 +59,8 @@ export default function Home() {
       setAge('')
       setDescription('')
 
+      setData(updatedData)
+
       successMessage()
 
     } else {
@@ -58,6 +69,8 @@ export default function Home() {
       setName('')
       setAge('')
       setDescription('')
+
+      setData(updatedData)
 
       successMessage()
     }
@@ -76,7 +89,7 @@ export default function Home() {
                      className={Magda.className} style={{marginBottom: '1rem'}} />
 
                     <p>Age:</p>
-                    <Input placeholder='3 years' value={age}
+                    <Input placeholder='3 years old' value={age}
                      onChange={(e) => setAge(e.target.value)} required
                      className={Magda.className} style={{marginBottom: '1rem'}} />
 
@@ -109,6 +122,19 @@ export default function Home() {
          draggable='false' className='image' onClick={() => setOpen(true)}
          style={{cursor: 'pointer'}} />
       </div>
+
+      {
+        data.length > 0
+          ? <div className={styles.listArea}>
+              <List dataSource={data} renderItem={(item) => (
+                <List.Item key={item.id} className={Magda.className}>
+                  <List.Item.Meta avatar={<Avatar src='/images/chickenHead.svg' />}
+                   title={`${item.name}, ${item.age}`} description={item.description} />
+                </List.Item>
+               )} />
+            </div>
+          : <></>
+      }
 
       {contextHolder}
       <div className={styles.collapseArea}>
