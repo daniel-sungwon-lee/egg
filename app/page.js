@@ -70,7 +70,7 @@ export default function Home() {
       setAge('')
       setDescription('')
 
-      setData(updatedData)
+      setData([data])
 
       successMessage()
     }
