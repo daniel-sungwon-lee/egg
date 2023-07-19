@@ -122,8 +122,7 @@ export default function Home() {
       </div>
 
       <Modal centered open={open} className={Magda.className}
-       onCancel={() => setOpen(false)} footer={null} wrapClassName='chickenModal'
-       closeIcon={false}>
+       onCancel={() => setOpen(false)} footer={null} wrapClassName='chickenModal'>
         <div style={{padding: '1rem'}}>
           This project was inspired by my aunt&apos;s chicken farm that I had to take
           care of during the spring. I remember having to headcount all of the 10
