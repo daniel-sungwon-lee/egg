@@ -12,6 +12,7 @@ const Magda = localFont({ src: '../public/fonts/Magda.otf' })
 const { TextArea } = Input
 
 export default function Home() {
+  const [loaded, setLoaded] = useState(false)
   const [data, setData] = useState([])
 
   const [open, setOpen] = useState(false)
@@ -23,6 +24,10 @@ export default function Home() {
   useEffect(() => {
     if(localStorage.getItem('chickenHeadcount')) {
       setData(JSON.parse(localStorage.getItem('chickenHeadcount')))
+      setLoaded(true)
+
+    } else {
+      setLoaded(true)
     }
   },[])
 
@@ -142,37 +147,47 @@ export default function Home() {
       </div>
 
       {
-        data.length > 0
-          ? <div className={styles.listArea}>
-              <List dataSource={data} renderItem={(item) => (
-                <List.Item key={item.id} className={Magda.className}>
-                  <List.Item.Meta avatar={<Avatar src='/images/chickenHead.svg' />}
-                   title={`${item.name}, ${item.age}`} description={item.description} />
+        loaded
+          ? <>
+              {
+                data.length > 0
+                  ? <div className={styles.listArea}>
+                      <List dataSource={data} renderItem={(item) => (
+                        <List.Item key={item.id} className={Magda.className}>
+                          <List.Item.Meta avatar={<Avatar src='/images/chickenHead.svg' />}
+                           title={`${item.name}, ${item.age}`}
+                           description={item.description} />
 
-                  <Popconfirm title={<span className={Magda.className}>Delete chicken?</span>}
-                   okType='text' okText='yes' cancelText='no'
-                   cancelButtonProps={{type: 'text', className: Magda.className}}
-                   okButtonProps={{danger: true, className: Magda.className}}
-                   icon={<WarningFilled style={{color: '#ff4d4f'}} />}
-                   onConfirm={() => handleDelete(item.id)}>
-                    <Button type='text' shape='circle' danger icon={<DeleteFilled />} />
-                  </Popconfirm>
-                </List.Item>
-               )} />
-            </div>
+                          <Popconfirm title={
+                            <span className={Magda.className}>Delete chicken?</span>
+                           }
+                           okType='text' okText='yes' cancelText='no'
+                           cancelButtonProps={{type: 'text', className: Magda.className}}
+                           okButtonProps={{danger: true, className: Magda.className}}
+                           icon={<WarningFilled style={{color: '#ff4d4f'}} />}
+                           onConfirm={() => handleDelete(item.id)}>
+                            <Button type='text' shape='circle' danger
+                             icon={<DeleteFilled />} />
+                          </Popconfirm>
+                        </List.Item>
+                      )} />
+                    </div>
+                  : <></>
+              }
+
+              {contextHolder}
+              <div className={styles.collapseArea}>
+                <Collapse items={items} ghost size='large' className={Magda.className}
+                 expandIcon={({ isActive }) => <PlusOutlined rotate={isActive ? 135 : 0} />}
+                 onChange={() => {
+                   setName('')
+                   setAge('')
+                   setDescription('')
+                 }} />
+              </div>
+            </>
           : <></>
       }
-
-      {contextHolder}
-      <div className={styles.collapseArea}>
-        <Collapse items={items} ghost size='large' className={Magda.className}
-         expandIcon={({ isActive }) => <PlusOutlined rotate={isActive ? 135 : 0} />}
-         onChange={() => {
-          setName('')
-          setAge('')
-          setDescription('')
-         }} />
-      </div>
 
       <Modal centered open={open} className={Magda.className}
        onCancel={() => setOpen(false)} footer={null} wrapClassName='chickenModal'>
