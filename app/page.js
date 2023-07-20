@@ -3,8 +3,8 @@
 import Image from 'next/image'
 import styles from './page.module.css'
 import localFont from 'next/font/local'
-import { Avatar, Button, Card, Collapse, Input, List, Modal, message } from 'antd/es'
-import { PlusOutlined } from '@ant-design/icons'
+import { Avatar, Button, Card, Collapse, Input, List, Modal, Popconfirm, message } from 'antd/es'
+import { DeleteFilled, PlusOutlined, WarningFilled } from '@ant-design/icons'
 import { useEffect, useState } from 'react'
 
 const Magda = localFont({ src: '../public/fonts/Magda.otf' })
@@ -31,6 +31,12 @@ export default function Home() {
     messageApi.open({
       type: 'success',
       content: 'Chicken added',
+    });
+  };
+  const errorMessage = () => {
+    messageApi.open({
+      type: 'error',
+      content: 'Chicken deleted',
     });
   };
 
@@ -76,6 +82,16 @@ export default function Home() {
     }
   }
 
+  const handleDelete = (id) => {
+    const data = JSON.parse(localStorage.getItem('chickenHeadcount'))
+
+    const updated = data.filter(chicken => chicken.id !== id)
+    localStorage.setItem('chickenHeadcount', JSON.stringify(updated))
+    setData(updated)
+
+    errorMessage()
+  }
+
   const items = [
     {
       key: '1',
@@ -101,7 +117,7 @@ export default function Home() {
 
                     <div style={{display: 'flex', justifyContent: 'center'}}>
                       <Button htmlType='submit' shape='round' className={Magda.className}
-                       style={{background: '#FCE0B0'}} type='text'>
+                       style={{background: '#FCE0B0', color: 'black'}} type='primary'>
                         Submit
                       </Button>
                     </div>
@@ -130,6 +146,15 @@ export default function Home() {
                 <List.Item key={item.id} className={Magda.className}>
                   <List.Item.Meta avatar={<Avatar src='/images/chickenHead.svg' />}
                    title={`${item.name}, ${item.age}`} description={item.description} />
+
+                  <Popconfirm title={<span className={Magda.className}>Delete chicken?</span>}
+                   okType='text' okText='yes' cancelText='no'
+                   cancelButtonProps={{type: 'text', className: Magda.className}}
+                   okButtonProps={{danger: true, className: Magda.className}}
+                   icon={<WarningFilled style={{color: '#ff4d4f'}} />}
+                   onConfirm={() => handleDelete(item.id)}>
+                    <Button type='text' shape='circle' danger icon={<DeleteFilled />} />
+                  </Popconfirm>
                 </List.Item>
                )} />
             </div>
