@@ -31,12 +31,14 @@ export default function Home() {
     messageApi.open({
       type: 'success',
       content: 'Chicken added',
+      className: Magda.className
     });
   };
   const errorMessage = () => {
     messageApi.open({
       type: 'error',
       content: 'Chicken deleted',
+      className: Magda.className
     });
   };
 
