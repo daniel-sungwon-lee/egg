@@ -4,8 +4,11 @@ import Image from 'next/image'
 import styles from './page.module.css'
 import localFont from 'next/font/local'
 import { Avatar, Button, Card, Collapse, Input, List, Modal, Popconfirm, message } from 'antd/es'
-import { DeleteFilled, PlusOutlined, WarningFilled } from '@ant-design/icons'
+import { DeleteFilled, PlusOutlined, UploadOutlined, WarningFilled } from '@ant-design/icons'
 import { useEffect, useState } from 'react'
+import { Uploader } from 'uploader'
+
+const uploader = Uploader({apiKey: 'free'})
 
 const Magda = localFont({ src: '../public/fonts/Magda.otf' })
 
@@ -20,6 +23,7 @@ export default function Home() {
   const [name, setName] = useState('')
   const [age, setAge] = useState('')
   const [description, setDescription] = useState('')
+  const [imageURL, setImageURL] = useState('')
 
   useEffect(() => {
     if(localStorage.getItem('chickenHeadcount')) {
@@ -46,6 +50,13 @@ export default function Home() {
       className: Magda.className
     });
   };
+  const uploadMessage = (message, type) => {
+    messageApi.open({
+      type: type,
+      content: message,
+      className: Magda.className
+    })
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -60,7 +71,8 @@ export default function Home() {
       id: idGenerator(),
       name,
       age,
-      description
+      description,
+      imageURL
     }
 
     if(localStorage.getItem('chickenHeadcount')) {
@@ -71,6 +83,7 @@ export default function Home() {
       setName('')
       setAge('')
       setDescription('')
+      setImageURL('')
 
       setData(updatedData)
 
@@ -82,6 +95,7 @@ export default function Home() {
       setName('')
       setAge('')
       setDescription('')
+      setImageURL('')
 
       setData([data])
 
@@ -97,6 +111,20 @@ export default function Home() {
     setData(updated)
 
     errorMessage()
+  }
+
+  const handleUpload = () => {
+    uploader.open({maxFileCount: 1, styles: {fontFamilies: {base: Magda}}})
+      .then(files => {
+        if(files.length === 0) {
+          uploadMessage('No image selected', 'error')
+
+        } else {
+          uploadMessage('Image uploaded', 'success')
+          setImageURL(files[0].fileUrl)
+        }
+      })
+      .catch(error => uploadMessage(error, 'error'))
   }
 
   const items = [
@@ -122,7 +150,24 @@ export default function Home() {
                      onChange={(e) => setDescription(e.target.value)}
                      style={{marginBottom: '1rem'}} required />
 
-                    <div style={{display: 'flex', justifyContent: 'center'}}>
+                    <p>Photo: (optional)</p>
+                    {
+                      imageURL !== ''
+                        ? <div style={{display: 'flex', justifyContent: 'center'}}>
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img src={imageURL} alt='Uploaded photo' width={100}
+                             draggable='false' height={100} />
+                          </div>
+                        : <></>
+                    }
+                    <Button onClick={handleUpload} type='dashed' block
+                     style={{marginBottom: '1rem'}} icon={<UploadOutlined />}
+                     className={Magda.className}>
+                      Upload
+                    </Button>
+
+                    <div style={{display: 'flex', justifyContent: 'center',
+                     margin: '1rem 0'}}>
                       <Button htmlType='submit' shape='round' className={Magda.className}
                        style={{background: '#FCE0B0', color: 'black'}} type='primary'>
                         Submit
@@ -154,7 +199,8 @@ export default function Home() {
                   ? <div className={styles.listArea}>
                       <List dataSource={data} renderItem={(item) => (
                         <List.Item key={item.id} className={Magda.className}>
-                          <List.Item.Meta avatar={<Avatar src='/images/chickenHead.svg' />}
+                          <List.Item.Meta avatar={<Avatar src={item.imageURL === ''
+                            ? '/images/chickenHead.svg' : item.imageURL} />}
                            title={`${item.name}, ${item.age}`}
                            description={item.description} />
 
@@ -183,6 +229,7 @@ export default function Home() {
                    setName('')
                    setAge('')
                    setDescription('')
+                   setImageURL('')
                  }} />
               </div>
             </>
