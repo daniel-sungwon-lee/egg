@@ -153,10 +153,11 @@ export default function Home() {
                     <p>Photo: (optional)</p>
                     {
                       imageURL !== ''
-                        ? <div style={{display: 'flex', justifyContent: 'center'}}>
+                        ? <div style={{display: 'flex', justifyContent: 'center',
+                           margin: '0.5rem 0'}}>
                             {/* eslint-disable-next-line @next/next/no-img-element */}
                             <img src={imageURL} alt='Uploaded photo' width={100}
-                             draggable='false' height={100} />
+                             draggable='false' />
                           </div>
                         : <></>
                     }
