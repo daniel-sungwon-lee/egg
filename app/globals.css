@@ -1,3 +1,8 @@
+@font-face {
+  font-family: Magda;
+  src: url('../public/fonts/Magda.otf')
+}
+
 * {
   box-sizing: border-box;
   padding: 0;
@@ -33,6 +38,10 @@ body {
 a {
   text-decoration: none;
   color: black;
+}
+
+.btn {
+  font-family: Magda;
 }
 
 .ant-collapse-item {

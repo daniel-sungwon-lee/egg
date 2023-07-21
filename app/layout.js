@@ -5,7 +5,7 @@ const Magda = localFont({src: '../public/fonts/Magda.otf'})
 
 export const metadata = {
   title: 'Egg',
-  description: '',
+  description: 'Chicken and Egg tracker',
 }
 
 export default function RootLayout({ children }) {
