@@ -83,7 +83,11 @@ export default function Egg() {
   }
 
   const handleDelete = (id) => {
+    const data = JSON.parse(localStorage.getItem('eggCount'))
 
+    const updated = data.filter(egg => egg.id !== id)
+    localStorage.setItem('eggCount', JSON.stringify(updated))
+    setData(updated)
   }
 
   const items = [
