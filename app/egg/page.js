@@ -54,7 +54,7 @@ export default function Egg() {
     }
     const data = {
       id: idGenerator(),
-      date: dayjs(date).format('MM/DD/YYYY'),
+      date: dayjs(date).format('dddd, MMMM D, YYYY'),
       amount,
     }
 
@@ -102,12 +102,13 @@ export default function Egg() {
                     <p>Date:</p>
                     <DatePicker value={date} onChange={(value) => setDate(value)}
                      style={{marginBottom: '1rem'}} format={'MM/DD/YYYY'}
-                     className={Magda.className} />
+                     className={Magda.className} disabledDate={(currentDate) =>
+                      dayjs().isBefore(currentDate)} required />
 
                     <p>Amount:</p>
                     <InputNumber value={amount} onChange={(value)=>setAmount(value)}
                      style={{marginBottom: '1rem'}} min={0} className={Magda.className}
-                     placeholder='3' />
+                     placeholder='3' required />
 
                     <div style={{display: 'flex', justifyContent: 'center'}}>
                       <Button htmlType='submit' shape='round' className={Magda.className}
