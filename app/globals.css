@@ -11,6 +11,7 @@
 
 body {
   background: #FCE0B0;
+  overflow-x: hidden;
 }
 
 ::-webkit-scrollbar {
@@ -23,11 +24,6 @@ body {
 ::-webkit-scrollbar-thumb {
   background: rgba(0, 0, 0, 0.75);
   border-radius: 10px;
-  background-clip: padding-box;
-  border: 2px solid transparent;
-}
-::-webkit-scrollbar-thumb:hover {
-  border: 0;
 }
 
 ::selection {
@@ -48,6 +44,20 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.ant-picker-panel {
+  font-family: Magda;
+}
+.ant-picker-header-view button {
+  font-family: Magda;
+}
+.ant-picker-input input {
+  font-family: Magda !important;
+}
+
+.ant-input-number-input {
+  font-family: Magda !important;
 }
 
 

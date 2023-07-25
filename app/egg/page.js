@@ -6,7 +6,7 @@ import Lottie from 'lottie-react'
 import chickAnimation from '/public/lottie/chick.json'
 import { gsap } from 'gsap'
 import { useState } from 'react'
-import { Button, Card, Collapse } from 'antd/es'
+import { Button, Card, Collapse, DatePicker, InputNumber } from 'antd/es'
 import localFont from 'next/font/local'
 import { PlusOutlined } from '@ant-design/icons'
 
@@ -32,8 +32,14 @@ export default function Egg() {
                  style={{width: '300px'}}>
                   <form onSubmit={handleSubmit}>
                     <p>Date:</p>
+                    <DatePicker value={date} onChange={(value) => setDate(value)}
+                     style={{marginBottom: '1rem'}} format={'MM/DD/YYYY'}
+                     className={Magda.className} />
 
                     <p>Amount:</p>
+                    <InputNumber value={amount} onChange={(value)=>setAmount(value)}
+                     style={{marginBottom: '1rem'}} min={0} className={Magda.className}
+                     placeholder='3' />
 
                     <div style={{display: 'flex', justifyContent: 'center'}}>
                       <Button htmlType='submit' shape='round' className={Magda.className}
