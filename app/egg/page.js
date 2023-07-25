@@ -6,9 +6,45 @@ import Lottie from 'lottie-react'
 import chickAnimation from '/public/lottie/chick.json'
 import { gsap } from 'gsap'
 import { useState } from 'react'
+import { Button, Card, Collapse } from 'antd/es'
+import localFont from 'next/font/local'
+import { PlusOutlined } from '@ant-design/icons'
+
+const Magda = localFont({ src: '../../public/fonts/Magda.otf' })
 
 export default function Egg() {
   const [icon, setIcon] = useState('egg')
+
+  const [active, setActive] = useState(false)
+
+  const [date, setDate] = useState('')
+  const [amount, setAmount] = useState('')
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+  }
+
+  const items = [
+    {
+      key: '1',
+      label: active ? 'Close' : 'Add egg(s)',
+      children: <Card bordered={false} className={Magda.className}
+                 style={{width: '300px'}}>
+                  <form onSubmit={handleSubmit}>
+                    <p>Date:</p>
+
+                    <p>Amount:</p>
+
+                    <div style={{display: 'flex', justifyContent: 'center'}}>
+                      <Button htmlType='submit' shape='round' className={Magda.className}
+                      style={{background: '#D8E9E4', color: 'black'}} type='primary'>
+                        Add
+                      </Button>
+                    </div>
+                  </form>
+                </Card>
+    }
+  ]
 
   return (
     <main className={styles.eggPage}>
@@ -41,6 +77,20 @@ export default function Egg() {
         <a href='/' style={{background: '#D8E9E4'}} className='label'>
           Chicken
         </a>
+      </div>
+
+      <div className={styles.collapse}>
+        <Collapse items={items} ghost size='large' className={Magda.className}
+         expandIcon={({isActive}) => <PlusOutlined rotate={isActive ? 135 : 0} />}
+         onChange={() => {
+          if(document.querySelector('.ant-collapse-item-active')) {
+            setActive(true)
+          } else {
+            setActive(false)
+          }
+          setDate('')
+          setAmount('')
+         }} />
       </div>
     </main>
   )

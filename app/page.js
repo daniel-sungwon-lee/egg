@@ -19,6 +19,7 @@ export default function Home() {
   const [data, setData] = useState([])
 
   const [open, setOpen] = useState(false)
+  const [collapseActive, setCollapseActive] = useState(false)
 
   const [name, setName] = useState('')
   const [age, setAge] = useState('')
@@ -130,7 +131,7 @@ export default function Home() {
   const items = [
     {
       key: '1',
-      label: 'Add your chicken here',
+      label: collapseActive ? 'Close' : 'Add your chicken here',
       children: <Card bordered={false} className={Magda.className}
                  style={{width: '300px'}}>
                   <form onSubmit={handleSubmit}>
@@ -227,6 +228,11 @@ export default function Home() {
                 <Collapse items={items} ghost size='large' className={Magda.className}
                  expandIcon={({ isActive }) => <PlusOutlined rotate={isActive ? 135 : 0} />}
                  onChange={() => {
+                   if(document.querySelector('.ant-collapse-item-active')) {
+                    setCollapseActive(true)
+                   } else {
+                    setCollapseActive(false)
+                   }
                    setName('')
                    setAge('')
                    setDescription('')
