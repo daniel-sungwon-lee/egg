@@ -30,6 +30,15 @@
   z-index: 3;
 }
 
+.list {
+  width: 75%;
+  margin: auto;
+  background: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  margin-bottom: 1rem;
+}
+
 .collapse{
   display: flex;
   justify-content: center;

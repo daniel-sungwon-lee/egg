@@ -5,14 +5,18 @@ import styles from './page.module.css'
 import Lottie from 'lottie-react'
 import chickAnimation from '/public/lottie/chick.json'
 import { gsap } from 'gsap'
-import { useState } from 'react'
-import { Button, Card, Collapse, DatePicker, InputNumber } from 'antd/es'
+import { useEffect, useState } from 'react'
+import { Avatar, Button, Card, Collapse, DatePicker, InputNumber, List, Popconfirm, message } from 'antd/es'
 import localFont from 'next/font/local'
-import { PlusOutlined } from '@ant-design/icons'
+import { DeleteFilled, PlusOutlined, WarningFilled } from '@ant-design/icons'
+import dayjs from 'dayjs'
 
 const Magda = localFont({ src: '../../public/fonts/Magda.otf' })
 
 export default function Egg() {
+  const [loaded, setLoaded] = useState(false)
+  const [data, setData] = useState([])
+
   const [icon, setIcon] = useState('egg')
 
   const [active, setActive] = useState(false)
@@ -20,8 +24,66 @@ export default function Egg() {
   const [date, setDate] = useState('')
   const [amount, setAmount] = useState('')
 
+  useEffect(() => {
+    if(localStorage.getItem('eggCount')) {
+      setData(JSON.parse(localStorage.getItem('eggCount')))
+      setLoaded(true)
+
+    } else {
+      setLoaded(true)
+    }
+  },[])
+
+  const [messageApi, contextHolder] = message.useMessage();
+  const successMessage = () => {
+    messageApi.open({
+      type: 'success',
+      content: 'Egg(s) added',
+      className: Magda.className
+    });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault()
+
+    const idGenerator = () => {
+      const S4 = () => {
+        return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+      }
+      return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
+    }
+    const data = {
+      id: idGenerator(),
+      date: dayjs(date).format('MM/DD/YYYY'),
+      amount,
+    }
+
+    if(localStorage.getItem('eggCount')) {
+      const existingData = JSON.parse(localStorage.getItem('eggCount'))
+      const updatedData = [...existingData, data]
+      localStorage.setItem('eggCount', JSON.stringify(updatedData))
+
+      setDate('')
+      setAmount('')
+
+      setData(updatedData)
+
+      successMessage()
+
+    } else {
+      localStorage.setItem('eggCount', JSON.stringify([data]))
+
+      setDate('')
+      setAmount('')
+
+      setData([data])
+
+      successMessage()
+    }
+  }
+
+  const handleDelete = (id) => {
+
   }
 
   const items = [
@@ -84,20 +146,51 @@ export default function Egg() {
           Chicken
         </a>
       </div>
+      {
+        loaded
+          ? <>
+              {
+                data.length > 0
+                  ? <div className={styles.list}>
+                      <List dataSource={data} renderItem={(item) => (
+                        <List.Item key={item.id} className={Magda.className}>
+                          <List.Item.Meta avatar={<Avatar src='/images/egg-alt.svg' />}
+                           title={`${item.amount} ${item.amount === 1 ? 'egg' : 'eggs'}`}
+                           description={item.date} />
 
-      <div className={styles.collapse}>
-        <Collapse items={items} ghost size='large' className={Magda.className}
-         expandIcon={({isActive}) => <PlusOutlined rotate={isActive ? 135 : 0} />}
-         onChange={() => {
-          if(document.querySelector('.ant-collapse-item-active')) {
-            setActive(true)
-          } else {
-            setActive(false)
-          }
-          setDate('')
-          setAmount('')
-         }} />
-      </div>
+                          <Popconfirm title={<span className={Magda.className}>Delete?</span>}
+                           okType='text' okText='yes' cancelText='no'
+                           cancelButtonProps={{type: 'text', className: Magda.className}}
+                           okButtonProps={{danger: true, className: Magda.className}}
+                           icon={<WarningFilled style={{color: '#ff4d4f'}} />}
+                           onConfirm={() => handleDelete(item.id)}>
+                            <Button type='text' shape='circle' danger icon={
+                              <DeleteFilled />
+                             } />
+                          </Popconfirm>
+                        </List.Item>
+                       )} />
+                    </div>
+                  : <></>
+              }
+
+              {contextHolder}
+              <div className={styles.collapse}>
+                <Collapse items={items} ghost size='large' className={Magda.className}
+                 expandIcon={({isActive}) => <PlusOutlined rotate={isActive ? 135 : 0} />}
+                 onChange={() => {
+                  if(document.querySelector('.ant-collapse-item-active')) {
+                    setActive(true)
+                  } else {
+                    setActive(false)
+                  }
+                  setDate('')
+                  setAmount('')
+                 }} />
+              </div>
+            </>
+          : <></>
+      }
     </main>
   )
 }
