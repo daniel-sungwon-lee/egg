@@ -35,10 +35,10 @@ export default function Egg() {
   },[])
 
   const [messageApi, contextHolder] = message.useMessage();
-  const successMessage = () => {
+  const toastMessage = (type, content) => {
     messageApi.open({
-      type: 'success',
-      content: 'Egg(s) added',
+      type: type,
+      content: content,
       className: Magda.className
     });
   };
@@ -68,7 +68,7 @@ export default function Egg() {
 
       setData(updatedData)
 
-      successMessage()
+      toastMessage('success', 'Egg(s) added')
 
     } else {
       localStorage.setItem('eggCount', JSON.stringify([data]))
@@ -78,7 +78,7 @@ export default function Egg() {
 
       setData([data])
 
-      successMessage()
+      toastMessage('success', 'Egg(s) added')
     }
   }
 
@@ -88,6 +88,8 @@ export default function Egg() {
     const updated = data.filter(egg => egg.id !== id)
     localStorage.setItem('eggCount', JSON.stringify(updated))
     setData(updated)
+
+    toastMessage('error', 'Deleted')
   }
 
   const items = [
