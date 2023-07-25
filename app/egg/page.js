@@ -125,8 +125,7 @@ export default function Egg() {
       {
         icon === 'egg' ? <div className={`${styles.eggImg} egg`}>
                            <Image src={'/images/egg.svg'} alt='Egg' width={512}
-                            height={512} draggable='false' style={{background: '#D8E9E4',
-                            cursor: 'pointer'}}
+                            height={512} draggable='false' style={{cursor: 'pointer'}}
                             className='image' onClick={() => {
                               const tl = gsap.timeline()
                               tl.to('.egg', {transform: 'rotate(15deg)'})
@@ -144,11 +143,11 @@ export default function Egg() {
                        : <div className={`${styles.lottie} chick`} style={{opacity: 1}}>
                            <Lottie animationData={chickAnimation} loop autoplay
                             draggable='false' className='image' style={{margin: '4rem 2rem',
-                            background: '#D8E9E4', width: '460px'}} />
+                            width: '460px'}} />
                          </div>
       }
       <div className={styles.subtitle}>
-        <a href='/' style={{background: '#D8E9E4'}} className='label'>
+        <a href='/' className='label'>
           Chicken
         </a>
       </div>
