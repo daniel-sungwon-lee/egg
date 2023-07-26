@@ -24,6 +24,13 @@
   z-index: 3;
 }
 
+.calendar {
+  width: 80%;
+  margin: auto;
+  margin-bottom: 2rem;
+  border-radius: 2rem;
+}
+
 .list {
   width: 75%;
   margin: auto;

@@ -3,7 +3,8 @@
 import Image from 'next/image'
 import styles from './page.module.css'
 import localFont from 'next/font/local'
-import { Avatar, Button, Card, Collapse, Input, List, Modal, Popconfirm, message } from 'antd/es'
+import { Avatar, Button, Card, Collapse, Input, List, Modal, Popconfirm,
+         message } from 'antd/es'
 import { DeleteFilled, PlusOutlined, UploadOutlined, WarningFilled } from '@ant-design/icons'
 import { useEffect, useState } from 'react'
 import { Uploader } from 'uploader'

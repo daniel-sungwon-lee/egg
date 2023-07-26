@@ -6,7 +6,8 @@ import Lottie from 'lottie-react'
 import chickAnimation from '/public/lottie/chick.json'
 import { gsap } from 'gsap'
 import { useEffect, useState } from 'react'
-import { Avatar, Button, Card, Collapse, DatePicker, InputNumber, List, Popconfirm, message } from 'antd/es'
+import { Avatar, Button, Calendar, Card, Collapse, DatePicker, InputNumber,
+         List, Popconfirm, message } from 'antd/es'
 import localFont from 'next/font/local'
 import { DeleteFilled, PlusOutlined, WarningFilled } from '@ant-design/icons'
 import dayjs from 'dayjs'
@@ -155,6 +156,11 @@ export default function Egg() {
       {
         loaded
           ? <>
+              <div className={styles.calendar}>
+                <Calendar className={Magda.className} style={{padding: '1rem',
+                  borderRadius: '1.5rem'}} />
+              </div>
+
               {
                 data.length > 0
                   ? <div className={styles.list}>

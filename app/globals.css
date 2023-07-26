@@ -60,6 +60,16 @@ a {
   font-family: Magda !important;
 }
 
+.ant-select-selector {
+  font-family: Magda !important;
+}
+.ant-select-dropdown {
+  font-family: Magda !important;
+}
+label.ant-radio-button-wrapper span {
+  font-family: Magda;
+}
+
 
 @media(max-width: 576px) {
   .image {
