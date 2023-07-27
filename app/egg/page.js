@@ -62,12 +62,13 @@ export default function Egg() {
     if(localStorage.getItem('eggCount')) {
       const existingData = JSON.parse(localStorage.getItem('eggCount'))
       const updatedData = [...existingData, data]
-      localStorage.setItem('eggCount', JSON.stringify(updatedData))
+      localStorage.setItem('eggCount', JSON.stringify(updatedData.sort((a,b) =>
+        new Date(a.date) - new Date(b.date))))
 
       setDate('')
       setAmount('')
 
-      setData(updatedData)
+      setData(updatedData.sort((a,b) => new Date(a.date) - new Date(b.date)))
 
       toastMessage('success', 'Egg(s) added')
 
