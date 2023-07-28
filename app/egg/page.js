@@ -125,7 +125,29 @@ export default function Egg() {
 
   const cellRender = (currentDate, info) => {
     if(info.type === 'month') {
-      return
+      const eggEntries = []
+
+      for (let i = 0; i < data.length; i++) {
+        if (dayjs(data[i].date).month() === dayjs(currentDate).month()) {
+          eggEntries.push(data[i])
+        }
+      }
+
+      return (
+        <div style={{marginTop: '0.75rem'}}>
+          {
+            eggEntries.map(entry => (
+              <Badge key={entry.id} count={entry.amount} showZero
+               title={`${entry.amount} ${entry.amount === 1 ? 'egg' : 'eggs'}`}
+               className={Magda.className}>
+                <Avatar src='/images/egg-alt.svg' title={
+                  `${entry.amount} ${entry.amount === 1 ? 'egg' : 'eggs'}`
+                 } />
+              </Badge>
+            ))
+          }
+        </div>
+      )
 
     } else {
       const eggEntries = []
