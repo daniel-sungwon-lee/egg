@@ -123,30 +123,35 @@ export default function Egg() {
     }
   ]
 
-  const dateCellRender = (currentDate) => {
-    const eggEntries = []
+  const cellRender = (currentDate, info) => {
+    if(info.type === 'month') {
+      return
 
-    for(let i=0; i<data.length; i++) {
-      if (data[i].date === dayjs(currentDate).format('dddd, MMMM D, YYYY')) {
-        eggEntries.push(data[i])
-      }
-    }
+    } else {
+      const eggEntries = []
 
-    return (
-      <div style={{marginTop: '0.75rem'}}>
-        {
-          eggEntries.map(entry => (
-            <Badge key={entry.id} count={entry.amount} showZero status='success'
-             title={`${entry.amount} ${entry.amount === 1 ? 'egg' : 'eggs'}`}
-             className={Magda.className}>
-              <Avatar src='/images/egg-alt.svg' title={
-                `${entry.amount} ${entry.amount === 1 ? 'egg' : 'eggs'}`
-               } />
-            </Badge>
-          ))
+      for(let i=0; i<data.length; i++) {
+        if (data[i].date === dayjs(currentDate).format('dddd, MMMM D, YYYY')) {
+          eggEntries.push(data[i])
         }
-      </div>
-    )
+      }
+
+      return (
+        <div style={{marginTop: '0.75rem'}}>
+          {
+            eggEntries.map(entry => (
+              <Badge key={entry.id} count={entry.amount} showZero
+               title={`${entry.amount} ${entry.amount === 1 ? 'egg' : 'eggs'}`}
+               className={Magda.className}>
+                <Avatar src='/images/egg-alt.svg' title={
+                  `${entry.amount} ${entry.amount === 1 ? 'egg' : 'eggs'}`
+                 } />
+              </Badge>
+            ))
+          }
+        </div>
+      )
+    }
   }
 
   return (
@@ -185,7 +190,7 @@ export default function Egg() {
           ? <>
               <div className={styles.calendar}>
                 <Calendar className={Magda.className} style={{padding: '1rem',
-                  borderRadius: '1.5rem'}} cellRender={dateCellRender} />
+                  borderRadius: '1.5rem'}} cellRender={cellRender} />
               </div>
 
               {
