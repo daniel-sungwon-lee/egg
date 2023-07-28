@@ -176,6 +176,22 @@ export default function Egg() {
     }
   }
 
+  const handleSelect = (date, info) => {
+    if(info.source === 'date') {
+      if(!active) {
+        document.querySelector('.ant-collapse-header').click()
+        setTimeout(() => {
+          window.scrollTo({top: document.querySelector('.ant-collapse-item').offsetTop, behavior: 'smooth' });
+          setDate(date)
+        }, 300)
+
+      } else {
+        window.scrollTo({top: document.querySelector('.ant-collapse-item').offsetTop, behavior: 'smooth' });
+        setDate(date)
+      }
+    }
+  }
+
   return (
     <main className={styles.eggPage}>
       {
@@ -212,7 +228,8 @@ export default function Egg() {
           ? <>
               <div className={styles.calendar}>
                 <Calendar className={Magda.className} style={{padding: '1rem',
-                  borderRadius: '1.5rem'}} cellRender={cellRender} />
+                  borderRadius: '1.5rem'}} cellRender={cellRender}
+                 onSelect={handleSelect} />
               </div>
 
               {
