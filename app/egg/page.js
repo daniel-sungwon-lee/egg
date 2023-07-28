@@ -20,6 +20,8 @@ export default function Egg() {
 
   const [icon, setIcon] = useState('egg')
 
+  const [calendarMode, setCalendarMode] = useState('month')
+
   const [active, setActive] = useState(false)
 
   const [date, setDate] = useState('')
@@ -128,7 +130,8 @@ export default function Egg() {
       const eggEntries = []
 
       for (let i = 0; i < data.length; i++) {
-        if (dayjs(data[i].date).month() === dayjs(currentDate).month()) {
+        if (dayjs(data[i].date).month() === dayjs(currentDate).month() &&
+            dayjs(data[i].date).year() === dayjs(currentDate).year()) {
           eggEntries.push(data[i])
         }
       }
@@ -189,6 +192,18 @@ export default function Egg() {
         window.scrollTo({top: document.querySelector('.ant-collapse-item').offsetTop, behavior: 'smooth' });
         setDate(date)
       }
+
+    } else if(info.source === 'month' && calendarMode === 'year') {
+      setCalendarMode('month')
+    }
+  }
+
+  const panelChange = (date, mode) => {
+    if(mode === 'month') {
+      setCalendarMode(mode)
+
+    } else {
+      setCalendarMode(mode)
     }
   }
 
@@ -229,7 +244,7 @@ export default function Egg() {
               <div className={styles.calendar}>
                 <Calendar className={Magda.className} style={{padding: '1rem',
                   borderRadius: '1.5rem'}} cellRender={cellRender}
-                 onSelect={handleSelect} />
+                 onSelect={handleSelect} mode={calendarMode} onPanelChange={panelChange} />
               </div>
 
               {
