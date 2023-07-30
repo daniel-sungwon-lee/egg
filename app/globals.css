@@ -79,4 +79,7 @@ label.ant-radio-button-wrapper span {
   .label {
     font-size: 66px;
   }
+  .calendar {
+    width: 90% !important;
+  }
 }

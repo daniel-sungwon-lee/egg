@@ -165,13 +165,21 @@ export default function Egg() {
         <div style={{marginTop: '0.75rem'}}>
           {
             eggEntries.map(entry => (
-              <Badge key={entry.id} count={entry.amount} showZero
-               title={`${entry.amount} ${entry.amount === 1 ? 'egg' : 'eggs'}`}
-               className={Magda.className}>
-                <Avatar src='/images/egg-alt.svg' title={
-                  `${entry.amount} ${entry.amount === 1 ? 'egg' : 'eggs'}`
-                 } />
-              </Badge>
+              <>
+                {
+                  screen.availWidth < 767
+                    ? <Badge key={entry.id} count={entry.amount} showZero
+                       title={`${entry.amount} ${entry.amount === 1 ? 'egg' : 'eggs'}`}
+                       className={Magda.className} />
+                    : <Badge key={entry.id} count={entry.amount} showZero
+                       title={`${entry.amount} ${entry.amount === 1 ? 'egg' : 'eggs'}`}
+                       className={Magda.className}>
+                        <Avatar src='/images/egg-alt.svg' title={
+                            `${entry.amount} ${entry.amount === 1 ? 'egg' : 'eggs'}`
+                          } />
+                      </Badge>
+                }
+              </>
             ))
           }
         </div>
@@ -241,7 +249,7 @@ export default function Egg() {
       {
         loaded
           ? <>
-              <div className={styles.calendar}>
+              <div className={`${styles.calendar} calendar`}>
                 <Calendar className={Magda.className} style={{padding: '1rem',
                   borderRadius: '1.5rem'}} cellRender={cellRender}
                  onSelect={handleSelect} mode={calendarMode} onPanelChange={panelChange} />
