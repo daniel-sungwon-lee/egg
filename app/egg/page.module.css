@@ -33,6 +33,8 @@
 
 .list {
   width: 75%;
+  max-height: 430px;
+  overflow: auto;
   margin: auto;
   background: white;
   padding: 2rem;
