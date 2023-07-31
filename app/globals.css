@@ -70,6 +70,10 @@ label.ant-radio-button-wrapper span {
   font-family: Magda;
 }
 
+.ant-tooltip {
+  font-family: Magda;
+}
+
 
 @media(max-width: 576px) {
   .image {

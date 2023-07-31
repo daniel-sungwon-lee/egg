@@ -7,7 +7,7 @@ import chickAnimation from '/public/lottie/chick.json'
 import { gsap } from 'gsap'
 import { useEffect, useState } from 'react'
 import { Avatar, Badge, Button, Calendar, Card, Collapse, DatePicker, InputNumber,
-         List, Popconfirm, message } from 'antd/es'
+         List, Popconfirm, Tooltip, message } from 'antd/es'
 import localFont from 'next/font/local'
 import { DeleteFilled, PlusOutlined, WarningFilled } from '@ant-design/icons'
 import dayjs from 'dayjs'
@@ -168,16 +168,18 @@ export default function Egg() {
               <>
                 {
                   screen.availWidth < 767
-                    ? <Badge key={entry.id} count={entry.amount} showZero
-                       title={`${entry.amount} ${entry.amount === 1 ? 'egg' : 'eggs'}`}
-                       className={Magda.className} />
-                    : <Badge key={entry.id} count={entry.amount} showZero
-                       title={`${entry.amount} ${entry.amount === 1 ? 'egg' : 'eggs'}`}
-                       className={Magda.className}>
-                        <Avatar src='/images/egg-alt.svg' title={
-                            `${entry.amount} ${entry.amount === 1 ? 'egg' : 'eggs'}`
-                          } />
-                      </Badge>
+                    ? <Tooltip title={`${entry.amount} ${entry.amount === 1 ? 'egg' : 'eggs'}`}>
+                        <Badge key={entry.id} count={entry.amount} showZero
+                         className={Magda.className} title={false} />
+                      </Tooltip>
+                    : <Tooltip title={`${entry.amount} ${entry.amount === 1 ? 'egg' : 'eggs'}`}>
+                        <Badge key={entry.id} count={entry.amount} showZero
+                         className={Magda.className} title={false}>
+                          <Tooltip title={`${entry.amount} ${entry.amount === 1 ? 'egg' : 'eggs'}`}>
+                            <Avatar src='/images/egg-alt.svg' />
+                          </Tooltip>
+                        </Badge>
+                      </Tooltip>
                 }
               </>
             ))
