@@ -140,13 +140,15 @@ export default function Egg() {
         <div style={{marginTop: '0.75rem'}}>
           {
             eggEntries.map(entry => (
-              <Badge key={entry.id} count={entry.amount} showZero
-               title={`${entry.amount} ${entry.amount === 1 ? 'egg' : 'eggs'}`}
-               className={Magda.className}>
-                <Avatar src='/images/egg-alt.svg' title={
-                  `${entry.amount} ${entry.amount === 1 ? 'egg' : 'eggs'}`
-                 } />
-              </Badge>
+              <Tooltip title={`${entry.amount} ${entry.amount === 1 ? 'egg' : 'eggs'}`}
+               key={entry.id}>
+                <Badge count={entry.amount} showZero title={false}
+                 className={Magda.className}>
+                  <Tooltip title={`${entry.amount} ${entry.amount === 1 ? 'egg' : 'eggs'}`}>
+                    <Avatar src='/images/egg-alt.svg' />
+                  </Tooltip>
+                </Badge>
+              </Tooltip>
             ))
           }
         </div>
