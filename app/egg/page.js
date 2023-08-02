@@ -7,7 +7,7 @@ import chickAnimation from '/public/lottie/chick.json'
 import { gsap } from 'gsap'
 import { useEffect, useState } from 'react'
 import { Avatar, Badge, Button, Calendar, Card, Collapse, DatePicker, InputNumber,
-         List, Popconfirm, Tooltip, message } from 'antd/es'
+         List, Popconfirm, Space, Tooltip, message } from 'antd/es'
 import localFont from 'next/font/local'
 import { DeleteFilled, PlusOutlined, WarningFilled } from '@ant-design/icons'
 import dayjs from 'dayjs'
@@ -15,6 +15,8 @@ import dayjs from 'dayjs'
 const Magda = localFont({ src: '../../public/fonts/Magda.otf' })
 
 export default function Egg() {
+  const [screenWidth, setScreenWidth] = useState(screen.availWidth)
+
   const [loaded, setLoaded] = useState(false)
   const [data, setData] = useState([])
 
@@ -35,6 +37,10 @@ export default function Egg() {
     } else {
       setLoaded(true)
     }
+
+    window.addEventListener('resize', (e) => {
+      setScreenWidth(screen.availWidth)
+    })
   },[])
 
   const [messageApi, contextHolder] = message.useMessage();
@@ -167,23 +173,23 @@ export default function Egg() {
         <div style={{marginTop: '0.75rem'}}>
           {
             eggEntries.map(entry => (
-              <>
+              <Space key={entry.id}>
                 {
-                  screen.availWidth < 767
+                  screenWidth < 767
                     ? <Tooltip title={`${entry.amount} ${entry.amount === 1 ? 'egg' : 'eggs'}`}>
-                        <Badge key={entry.id} count={entry.amount} showZero
-                         className={Magda.className} title={false} />
+                        <Badge count={entry.amount} showZero title={false}
+                         className={Magda.className} />
                       </Tooltip>
                     : <Tooltip title={`${entry.amount} ${entry.amount === 1 ? 'egg' : 'eggs'}`}>
-                        <Badge key={entry.id} count={entry.amount} showZero
-                         className={Magda.className} title={false}>
+                        <Badge count={entry.amount} showZero title={false}
+                         className={Magda.className}>
                           <Tooltip title={`${entry.amount} ${entry.amount === 1 ? 'egg' : 'eggs'}`}>
                             <Avatar src='/images/egg-alt.svg' />
                           </Tooltip>
                         </Badge>
                       </Tooltip>
                 }
-              </>
+              </Space>
             ))
           }
         </div>
