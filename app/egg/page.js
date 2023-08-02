@@ -20,8 +20,6 @@ export default function Egg() {
   const [loaded, setLoaded] = useState(false)
   const [data, setData] = useState([])
 
-  const [icon, setIcon] = useState('egg')
-
   const [calendarMode, setCalendarMode] = useState('month')
 
   const [active, setActive] = useState(false)
@@ -227,30 +225,33 @@ export default function Egg() {
 
   return (
     <main className={styles.eggPage}>
-      {
-        icon === 'egg' ? <div className={`${styles.eggImg} egg`}>
-                           <Image src={'/images/egg.svg'} alt='Egg' width={512}
-                            height={512} draggable='false' style={{cursor: 'pointer'}}
-                            className='image' onClick={() => {
-                              const tl = gsap.timeline()
-                              tl.to('.egg', {transform: 'rotate(15deg)'})
-                                .to('.egg', {transform: 'rotate(-30deg)'})
-                                .to('.egg', {transform: 'rotate(15deg)'})
-                                .to('.egg', {transform: 'rotate(0deg)'})
-                                .to('.egg', {transform: 'rotate(15deg)', duration:0.25}, '<0.5')
-                                .to('.egg', {transform: 'rotate(-30deg)', duration:0.25})
-                                .to('.egg', {transform: 'rotate(15deg)', duration:0.25})
-                                .to('.egg', {transform: 'rotate(0deg)', duration:0.25})
-                                .to('.egg', {opacity: 0, duration: 1, ease: 'power3.inOut',
-                                    onComplete: () => setIcon('chick')}, '<1')
-                            }} />
-                         </div>
-                       : <div className={`${styles.lottie} chick`} style={{opacity: 1}}>
-                           <Lottie animationData={chickAnimation} loop autoplay
-                            draggable='false' className='image' style={{margin: '4rem 2rem',
-                            width: '460px'}} />
-                         </div>
-      }
+      <div className={`${styles.eggImg} egg`}>
+        <Image src={'/images/egg.svg'} alt='Egg' width={512}
+         height={512} draggable='false' style={{ cursor: 'pointer' }}
+         className='image' onClick={() => {
+          const tl = gsap.timeline()
+          tl.to('.egg', { transform: 'rotate(15deg)' })
+            .to('.egg', { transform: 'rotate(-30deg)' })
+            .to('.egg', { transform: 'rotate(15deg)' })
+            .to('.egg', { transform: 'rotate(0deg)' })
+            .to('.egg', { transform: 'rotate(15deg)', duration: 0.25 }, '<0.5')
+            .to('.egg', { transform: 'rotate(-30deg)', duration: 0.25 })
+            .to('.egg', { transform: 'rotate(15deg)', duration: 0.25 })
+            .to('.egg', { transform: 'rotate(0deg)', duration: 0.25 })
+            .to('.egg', { opacity: 0, duration: 1, ease: 'power3.inOut' }, '<1')
+            .to('.chick', {width: 'initial', height: 'initial'})
+            .to('.egg', {display: 'none'}, '<-0.5')
+         }} />
+      </div>
+
+      <div className={`${styles.lottie} chick`} style={{ width: 0, height: 0 }}>
+        <Lottie animationData={chickAnimation} loop autoplay
+          draggable='false' className='image' style={{
+            margin: '4rem 2rem',
+            width: '460px'
+          }} />
+      </div>
+
       <div className={styles.subtitle}>
         <a href='/' className='label'>
           Chicken
